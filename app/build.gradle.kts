@@ -1,3 +1,5 @@
+apply<AndroidConfiguration>()
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -7,22 +9,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.sdkCompileVersion)
-    buildToolsVersion(Versions.buildToolVersion)
-
-    defaultConfig {
+    defaultConfig{
         applicationId = "com.example.libsysmanagement"
-        minSdkVersion(Versions.sdkMinVersion)
-        targetSdkVersion(Versions.sdkTargetVersion)
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     // For Kotlin projects
@@ -32,12 +20,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-    }
-
-    sourceSets {
-        getByName("main").java.srcDir("src/main/kotlin")
-        getByName("test").java.srcDir("src/test/kotlin")
-        getByName("androidTest").java.srcDir("src/androidTest/kotlin")
     }
 
     buildTypes {
@@ -62,6 +44,8 @@ dependencies {
     implementation(deps.androidX.recyclerView)
     implementation(deps.androidX.viewModel)
 
+
+    implementation(project(":corenetworking"))
 
     /* retrofit for network calls */
     implementation(deps.square.retrofit)
