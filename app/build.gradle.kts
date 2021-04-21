@@ -17,6 +17,7 @@ android {
         versionCode = Versions.versionCode
         versionName = Versions.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     compileOptions {
@@ -76,7 +77,11 @@ dependencies {
     implementation(deps.di.hiltAndroid)
     kapt(deps.di.hiltCompiler)
 
+    //other
     implementation(deps.other.gson)
+    implementation(deps.other.qrScanner)
+    implementation(deps.other.multiDex)
+
     //testing
     testImplementation(deps.testing.coreTesting)
     androidTestImplementation(deps.testing.androidxCoreTesting)

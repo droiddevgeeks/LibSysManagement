@@ -31,6 +31,8 @@ object Versions {
     const val junit5Version = "5.7.1"
     const val mockitoVersion = "3.9.0"
     const val gradlePluginJunitVersion = "1.5.2.0"
+    const val qrScannerVersion = "3.4.0"
+    const val multiDexVersion = "2.0.1"
 
 }
 
@@ -79,5 +81,7 @@ object deps {
 
     object other {
         const val gson = "com.google.code.gson:gson:${Versions.gsonVersion}"
+        const val qrScanner = "com.journeyapps:zxing-android-embedded:${Versions.qrScannerVersion}"
+        const val multiDex = "androidx.multidex:multidex:${Versions.multiDexVersion}"
     }
 }

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">LibSysManagement</string>
+    <string name="welcome_to_libsys">Welcome to LibSys</string>
+    <string name="scan_now">Scan Now</string>
+    <string name="end_session">End Session</string>
+    <string name="result_not_found">Result Not Found</string>
+    <string name="scan_prompt">Scanning Library QR</string>
+    <string name="something_went_wrong">Something went wrong. Please try again.</string>
+    <string name="invalid_qr">QR Code is invalid, Please scan valid QR</string>
+    <string name="location_id">Location ID</string>
+    <string name="location_detail">Location Detail</string>
+    <string name="price_per_min">Price Per Min</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="total_time">Total Time</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="pay">Pay</string>
 </resources>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/session_detail_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/headingBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="tvLocationId,tvLocationDetail,tvPrice" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocationId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location_id"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocationValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintBottom_toBottomOf="@id/tvLocationId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvLocationId"
+        tools:text="Location ID" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocationDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/location_detail"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLocationValue" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocationDetailValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvLocationDetail"
+        tools:text="Location DetailLocation DetailLocation DetailLocation DetailLocation DetailLocation DetailLocation Detail" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/price_per_min"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLocationDetailValue" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPriceValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvPrice"
+        tools:text="Price Per Min" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/start_time"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPriceValue" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStartTimeValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvStartTime"
+        tools:text="12:45PM12:45PM12:45PM12:45PM12:45PM12:45PM12:45PM" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/end_time"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStartTimeValue" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEndTimeValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvEndTime"
+        tools:text="12:45PM12:45PM12:45PM12:45PM12:45PM12:45PM12:45PM" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTotalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/total_time"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEndTimeValue" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTotalTimeValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvTotalTime"
+        tools:text="2 Hrs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/total_amount"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalTimeValue" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAmountValue"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/headingBarrier"
+        app:layout_constraintTop_toTopOf="@id/tvAmount"
+        tools:text="$20" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:text="@string/pay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAmountValue" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/endSessionGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="
+        tvEndTime,tvEndTimeValue,tvTotalTime,tvTotalTimeValue,tvAmount,tvAmountValue,btnPay"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
