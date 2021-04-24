@@ -14,3 +14,9 @@ data class ScanData(
     @SerializedName("location_details") val locationDetails: String,
     @SerializedName("price_per_min") val pricePerMin: String,
 )
+
+sealed class DataState<out T> {
+    data class Loading(val isLoading: Boolean) : DataState<Nothing>()
+    data class Error(val error: Throwable) : DataState<Nothing>()
+    data class Success<T>(val data: T) : DataState<T>()
+}

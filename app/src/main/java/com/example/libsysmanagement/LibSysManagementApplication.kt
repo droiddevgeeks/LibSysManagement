@@ -1,6 +1,7 @@
 package com.example.libsysmanagement
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class LibSysManagementApplication : Application() {
-}
+@HiltAndroidApp
+class LibSysManagementApplication : Application()

@@ -15,4 +15,5 @@
     <string name="total_time">Total Time</string>
     <string name="total_amount">Total Amount</string>
     <string name="pay">Pay</string>
+    <string name="submitted">Submitted</string>
 </resources>
