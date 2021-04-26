@@ -16,4 +16,5 @@
     <string name="total_amount">Total Amount</string>
     <string name="pay">Pay</string>
     <string name="submitted">Submitted</string>
+    <string name="mins">%s mins</string>
 </resources>

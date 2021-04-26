@@ -3,6 +3,7 @@ package com.example.libsysmanagement.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -11,12 +12,9 @@ import com.example.libsysmanagement.R
 import com.example.libsysmanagement.R.string
 import com.example.libsysmanagement.databinding.ActivityMainBinding
 import com.example.libsysmanagement.extension.gone
-import com.example.libsysmanagement.extension.inVisible
 import com.example.libsysmanagement.extension.visible
 import com.example.libsysmanagement.model.DataState
-import com.example.libsysmanagement.model.ScanData
-import com.google.gson.Gson
-import com.google.gson.JsonParser
+import com.example.libsysmanagement.model.SessionDetails
 import com.google.zxing.integration.android.IntentIntegrator
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -30,52 +28,57 @@ class MainActivity : AppCompatActivity() {
         initAndConfigScanner()
     }
 
-    private lateinit var scanData: ScanData
+    private lateinit var sessionDetailsData: SessionDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        handleInitialState()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        result?.let {
-            if (it.contents.isNullOrEmpty().not()) {
-                val qrCode = JsonParser.parseString(it.contents).asString
-                scanData = Gson().fromJson(qrCode, ScanData::class.java)
-                Toast.makeText(this, scanData.toString(), Toast.LENGTH_SHORT).show()
-                setScanResult(scanData)
-            } else {
-                showToast(getString(string.result_not_found))
-            }
-        } ?: super.onActivityResult(requestCode, resultCode, data)
+    private fun handleInitialState() {
+        viewModel.fetchSessionDetails()
+        observeSessionResult()
     }
 
     fun openScanner(view: View) {
         qrScan.initiateScan()
     }
 
-    fun endSession(view: View) {
-        with(binding.sessionDetails) {
-            endSessionGroup.visible()
-            val endTime = Date(System.currentTimeMillis())
-            tvEndTimeValue.text = endTime.toString()
-        }
+    fun payAndSubmit(view: View) {
+        viewModel.submitSession(
+            body = SubmitRequest(
+                sessionDetailsData.scanData.locationId,
+                sessionDetailsData.totalTime.toInt(),
+                sessionDetailsData.endTime
+            )
+        )
+        observeSubmitSession()
     }
 
-    fun payAndSubmit(view: View) {
-        val submitRequest = SubmitRequest(scanData.locationId, 2, System.currentTimeMillis())
-        viewModel.submitSession(submitRequest)
-        observeSubmitSession()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        result?.let {
+            if (it.contents.isNullOrEmpty().not()) handleScanResult(it.contents)
+            else showToast(getString(string.result_not_found))
+        } ?: super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun handleScanResult(qrCode: String) {
+        if (binding.btnScan.text == getString(string.scan_now))
+            viewModel.checkAndStartSession(qrCode)
+        else viewModel.fetchEndSessionDetails(qrCode)
     }
 
     private fun observeSubmitSession() {
         viewModel.sessionSubmitLiveData.observe(this, { apiState ->
             when (apiState) {
                 is DataState.Loading -> handleLoading(apiState.isLoading)
-                is DataState.Error -> showToast(apiState.error.message
-                    ?: getString(string.something_went_wrong))
+                is DataState.Error -> showToast(
+                    apiState.error.message
+                        ?: getString(string.something_went_wrong)
+                )
                 is DataState.Success -> {
                     showToast(getString(string.submitted) + " " + apiState.data.success)
                     resetScan()
@@ -84,18 +87,55 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setScanResult(scanData: ScanData) {
+    private fun observeSessionResult() {
+        viewModel.sessionLiveData.observe(this, { scanState ->
+            when (scanState) {
+                is DataState.Error -> showToast(
+                    scanState.error.message
+                        ?: getString(string.something_went_wrong)
+                )
+                is DataState.Success -> {
+                    sessionDetailsData = scanState.data
+                    setScanResult()
+                }
+                else -> showToast(getString(string.something_went_wrong))
+            }
+        })
+    }
+
+    private fun setScanResult() {
         with(binding) {
-            btnScan.inVisible()
-            btnEndSession.visible()
+            btnScan.text = getString(string.end_session)
+            timer.visible()
         }
         with(binding.sessionDetails) {
+            handleClock(false)
             sessionDetailLayout.visible()
-            tvLocationValue.text = scanData.locationId
-            tvLocationDetailValue.text = scanData.locationDetails
-            tvPriceValue.text = scanData.pricePerMin
-            val date = Date(System.currentTimeMillis())
-            tvStartTimeValue.text = date.toString()
+            tvLocationValue.text = sessionDetailsData.scanData.locationId
+            tvLocationDetailValue.text = sessionDetailsData.scanData.locationDetails
+            tvPriceValue.text = sessionDetailsData.scanData.pricePerMin.toString()
+            tvStartTimeValue.text = Date(sessionDetailsData.startTime).toString()
+        }
+        if (sessionDetailsData.endTime != 0L) {
+            handleClock(true)
+            with(binding.sessionDetails) {
+                endSessionGroup.visible()
+                tvEndTimeValue.text = Date(sessionDetailsData.endTime).toString()
+                tvTotalTimeValue.text =
+                    getString(string.mins, sessionDetailsData.totalTime.toString())
+                tvAmountValue.text = sessionDetailsData.totalPrice.toString()
+            }
+        }
+    }
+
+    private fun handleClock(stopClock: Boolean) {
+        with(binding) {
+            if (stopClock) timer.stop()
+            else timer.start()
+            timer.format = "Time Spend %s"
+            timer.base = SystemClock.elapsedRealtime()
+                .plus(sessionDetailsData.startTime)
+                .minus(System.currentTimeMillis())
         }
     }
 
@@ -110,9 +150,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetScan() {
         with(binding) {
-            btnScan.visible()
-            btnEndSession.gone()
+            btnScan.text = getString(string.scan_now)
             sessionDetails.sessionDetailLayout.gone()
+            sessionDetails.endSessionGroup.gone()
+            timer.gone()
         }
     }
 

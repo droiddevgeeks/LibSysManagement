@@ -32,17 +32,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnEndSession"
+    <Chronometer
+        android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_24"
-        android:onClick="endSession"
-        android:text="@string/end_session"
+        android:layout_marginTop="@dimen/dimen_16"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
+        app:layout_constraintTop_toBottomOf="@id/btnScan"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -62,6 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnScan" />
+        app:layout_constraintTop_toBottomOf="@id/timer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
