@@ -1,6 +1,7 @@
 package com.example.corenetworking.repo
 
 import com.example.corenetworking.api.SubmitApi
+import com.example.corenetworking.localdata.LocalPref
 import com.example.corenetworking.model.SubmitRequest
 import com.example.corenetworking.model.SubmitResponse
 import com.nhaarman.mockitokotlin2.mock
@@ -14,10 +15,11 @@ import org.junit.jupiter.api.Test
 import retrofit2.HttpException
 import retrofit2.Response
 
-@DisplayName("Session Repository Test Cases" )
+@DisplayName("Session Repository Test Cases")
 class SessionRepositoryTest {
 
     private val endpoint by lazy { mock<SubmitApi>() }
+    private val localPref by lazy { mock<LocalPref>() }
 
     @Test
     fun `should return success as true when calling submit payment api`() {
@@ -68,5 +70,43 @@ class SessionRepositoryTest {
 
     private fun getRequestBody(): SubmitRequest {
         return SubmitRequest("1", 1, 2)
+    }
+
+    @Test
+    fun `Should start session by storing scan data in local preference`() {
+        val scanData = "Scan Data"
+        whenever(localPref.startSession(scanData)).thenReturn(Single.create { it.onSuccess(scanData) })
+
+        localPref.startSession(scanData)
+            .test()
+            .assertSubscribed()
+            .assertComplete()
+            .assertNoErrors()
+            .assertValue(scanData)
+    }
+
+    @Test
+    fun `Should end session by clearing scan data in local preference`() {
+        whenever(localPref.endSession()).thenReturn(Single.create { it.onSuccess(true) })
+
+        localPref.endSession()
+            .test()
+            .assertSubscribed()
+            .assertComplete()
+            .assertNoErrors()
+            .assertValue(true)
+    }
+
+    @Test
+    fun `Should get session details from local preference`() {
+        val sessionData = "Session Data"
+        whenever(localPref.getSessionInfo()).thenReturn(Single.create { it.onSuccess(sessionData) })
+
+        localPref.getSessionInfo()
+            .test()
+            .assertSubscribed()
+            .assertComplete()
+            .assertNoErrors()
+            .assertValue(sessionData)
     }
 }

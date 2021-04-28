@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             timer.visible()
         }
         with(binding.sessionDetails) {
-            handleClock(false)
+            handleClock()
             sessionDetailLayout.visible()
             tvLocationValue.text = sessionDetailsData.scanData.locationId
             tvLocationDetailValue.text = sessionDetailsData.scanData.locationDetails
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleClock(stopClock: Boolean) {
+    private fun handleClock(stopClock: Boolean = false) {
         with(binding) {
             if (stopClock) timer.stop()
             else timer.start()

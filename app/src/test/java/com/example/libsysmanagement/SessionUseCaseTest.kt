@@ -49,4 +49,42 @@ class SessionUseCaseTest {
         verify(repo).submitSession(submitRequest)
         verifyNoMoreInteractions(repo)
     }
+
+    @Test
+    fun `Should start session by storing scan data in local preference`() {
+        val scanData = "Scan Data"
+        whenever(repo.startSession(scanData)).thenReturn(Single.create { it.onSuccess(scanData) })
+
+        repo.startSession(scanData)
+            .test()
+            .assertSubscribed()
+            .assertComplete()
+            .assertNoErrors()
+            .assertValue(scanData)
+    }
+
+    @Test
+    fun `Should end session by clearing scan data in local preference`() {
+        whenever(repo.endSession()).thenReturn(Single.create { it.onSuccess(true) })
+
+        repo.endSession()
+            .test()
+            .assertSubscribed()
+            .assertComplete()
+            .assertNoErrors()
+            .assertValue(true)
+    }
+
+    @Test
+    fun `Should get session details from local preference`() {
+        val sessionData = "Session Data"
+        whenever(repo.getSessionInfo()).thenReturn(Single.create { it.onSuccess(sessionData) })
+
+        repo.getSessionInfo()
+            .test()
+            .assertSubscribed()
+            .assertComplete()
+            .assertNoErrors()
+            .assertValue(sessionData)
+    }
 }
