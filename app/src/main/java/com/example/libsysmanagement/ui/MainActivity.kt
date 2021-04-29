@@ -15,6 +15,7 @@ import com.example.libsysmanagement.extension.gone
 import com.example.libsysmanagement.extension.visible
 import com.example.libsysmanagement.model.DataState
 import com.example.libsysmanagement.model.SessionDetails
+import com.example.libsysmanagement.session.SessionViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

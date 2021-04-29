@@ -15,6 +15,7 @@ object Versions {
     const val appcompatVersion = "1.2.0"
     const val coreKtxVersion = "1.3.2"
     const val ktxViewModelVersion = "2.3.1"
+    const val archLifeCycle = "2.2.0"
     const val androidxStableVersion = "1.2.0"
     const val constraintLayoutVersion = "2.1.0-beta01"
     const val retrofitVersion = "2.9.0"
@@ -45,6 +46,7 @@ object deps {
         const val ktxFragment = "androidx.fragment:fragment-ktx:${Versions.coreKtxVersion}"
         const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.androidxStableVersion}"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.ktxViewModelVersion}"
+        const val archLifeCycle = "android.arch.lifecycle:extensions:${Versions.archLifeCycle}"
     }
 
     object kotlin {

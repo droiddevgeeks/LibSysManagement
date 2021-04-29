@@ -1,4 +1,4 @@
-package com.example.libsysmanagement.ui
+package com.example.libsysmanagement.session
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,6 @@ import com.example.corenetworking.util.RxScheduler
 import com.example.libsysmanagement.model.DataState
 import com.example.libsysmanagement.model.ScanDataMapper
 import com.example.libsysmanagement.model.SessionDetails
-import com.example.libsysmanagement.session.SessionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable

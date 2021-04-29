@@ -43,6 +43,7 @@ dependencies {
     implementation(deps.androidX.ktxFragment)
     implementation(deps.androidX.recyclerView)
     implementation(deps.androidX.viewModel)
+    implementation (deps.androidX.archLifeCycle)
 
 
     implementation(project(":corenetworking"))

@@ -9,7 +9,7 @@ import com.example.libsysmanagement.model.DataState
 import com.example.libsysmanagement.model.ScanDataMapper
 import com.example.libsysmanagement.model.SessionDetails
 import com.example.libsysmanagement.session.SessionUseCase
-import com.example.libsysmanagement.ui.SessionViewModel
+import com.example.libsysmanagement.session.SessionViewModel
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
